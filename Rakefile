@@ -16,12 +16,15 @@ def compile_contents(function_name)
 end
 
 def commit_and_tag_version(function_name, version)
+  release_branch = "temporary-branch-for-releasing"
   command = <<~COMMAND
     set -x
-    git add bin/compile &&
+    git checkout -b #{release_branch} &&
+      git add bin/compile &&
       git commit -m 'creating bin/compile for v#{version}-#{function_name}' &&
       git tag v#{version}-#{function_name} head &&
-      git reset --hard head~1
+      git checkout - &&
+      git branch -D #{release_branch}
   COMMAND
 
   output = `#{command}`
