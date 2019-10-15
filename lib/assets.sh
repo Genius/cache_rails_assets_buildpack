@@ -6,10 +6,6 @@ function save_assets() {
     echo "- preparing to cache $save_dir to $cache_dir but clearing destination first"
     rm -fr "$cache_dir"
 
-    echo "- removed $cache_dir checking size on disk"
-    mkdir -p "$cache_dir"
-    du -sh "$cache_dir"
-
     echo "- caching $save_dir"
     du -sh "$save_dir"
     mkdir -p "$cache_dir"
