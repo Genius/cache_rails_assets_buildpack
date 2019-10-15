@@ -30,7 +30,7 @@ def commit_and_tag_version(function_name, version)
     fail <<~ERROR
         The following command failed to run:
 
-        #{COMMAND}
+        #{command}
 
         The output captured was:
 
