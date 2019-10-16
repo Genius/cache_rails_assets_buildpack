@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+BUILDPACK_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
+source "$BUILDPACK_DIR/lib/assets.sh"
+
+echo "restore_rails_assets: started"
+
+function save_rails_assets() {
+  for dir in assets javascripts sass sass-preprocessed sprockets-cache templates; do
+    save_assets "$BUILD_DIR/tmp/$dir" "$CACHE_DIR/rails/cache/$dir"
+  done
+}
+
+function restore_rails_assets() {
+  for dir in assets javascripts sass sass-preprocessed sprockets-cache templates; do
+    restore_assets "$BUILD_DIR/tmp/$dir" "$CACHE_DIR/rails/cache/$dir"
+  done
+}
+
+restore_rails_assets
+
+echo "restore_rails_assets: finished"
